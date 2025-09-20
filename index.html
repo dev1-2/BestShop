@@ -6,31 +6,148 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600,400&display=swap" rel="stylesheet">
   <style>
-    body { margin:0; font-family: 'Montserrat', Arial, sans-serif; background: #f6f8fb; color: #222;}
-    header { background:#1e293b; color:#fff; padding:32px 0 16px; text-align:center; }
+    :root {
+      --bg: #f6f8fb;
+      --card-bg: #fff;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --card-shadow: 0 6px 24px #0f172a22;
+      --text-main: #222;
+      --text-desc: #374151;
+      --price: #16a34a;
+      --header: #1e293b;
+      --header-text: #fff;
+      --toggle-bg: #fff;
+      --toggle-icon: #2563eb;
+    }
+    body.dark {
+      --bg: #18181b;
+      --card-bg: #23232b;
+      --primary: #ff9900;
+      --primary-dark: #e78e00;
+      --card-shadow: 0 6px 24px #ff990022;
+      --text-main: #f8fafc;
+      --text-desc: #ffb55a;
+      --price: #ff9900;
+      --header: #111013;
+      --header-text: #ff9900;
+      --toggle-bg: #23232b;
+      --toggle-icon: #ff9900;
+    }
+    html, body { height:100%; margin:0; padding:0;}
+    body {
+      min-height:100vh;
+      font-family:'Montserrat', Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text-main);
+      transition:background .4s, color .4s;
+    }
+    header {
+      background:var(--header);
+      color:var(--header-text);
+      padding:32px 0 16px;
+      text-align:center;
+      position:relative;
+      transition:background .4s, color .4s;
+    }
     header h1 { margin:0; font-size:2.6em; letter-spacing:2px;}
-    header p { margin-top:8px; font-size:1.1em; color:#cbd5e1;}
-    .shop { max-width:1200px; margin:40px auto; display:flex; flex-wrap:wrap; gap:32px; justify-content:center;}
+    header p { margin-top:8px; font-size:1.1em; color:var(--text-desc);}
+    .toggle-mode {
+      position:absolute; top:30px; right:34px;
+      background:var(--toggle-bg);
+      border:none; outline:none;
+      border-radius:18px;
+      width:44px; height:44px;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 2px 8px #0002;
+      cursor:pointer;
+      transition:background .4s;
+      z-index:10;
+    }
+    .toggle-mode svg {
+      width:26px; height:26px; fill:var(--toggle-icon);
+      transition:fill .4s;
+    }
+    .shop {
+      max-width:1200px;
+      margin:40px auto;
+      display:flex; flex-wrap:wrap;
+      gap:32px;
+      justify-content:center;
+      animation:fadein .7s cubic-bezier(.18,.88,.32,1.28);
+    }
+    @keyframes fadein {
+      0% { opacity:0; transform:translateY(30px);}
+      100% { opacity:1; transform:translateY(0);}
+    }
     .card {
-      background:#fff; border-radius:16px; box-shadow:0 6px 24px #0f172a22;
-      width:300px; padding:0 0 18px; display:flex; flex-direction:column; align-items:center;
-      transition:transform .17s;
+      background:var(--card-bg);
+      border-radius:16px;
+      box-shadow:var(--card-shadow);
+      width:300px; padding:0 0 18px;
+      display:flex; flex-direction:column; align-items:center;
+      opacity:0; transform:scale(.97) translateY(30px);
+      animation:cardin .7s cubic-bezier(.18,.88,.32,1.28) forwards;
+      animation-delay:calc(var(--i) * 0.12s);
+      transition:box-shadow .2s, background .4s;
+      position:relative;
+      overflow:hidden;
     }
-    .card:hover { transform:scale(1.03);}
-    .card img { width:260px; height:180px; object-fit:cover; border-radius:14px 14px 0 0; margin-bottom:12px;}
+    @keyframes cardin {
+      0% { opacity:0; transform:scale(.97) translateY(30px);}
+      75% { opacity:1; transform:scale(1.04) translateY(-6px);}
+      100% { opacity:1; transform:scale(1) translateY(0);}
+    }
+    .card:hover {
+      box-shadow:0 12px 32px var(--primary-dark)33;
+      transform:scale(1.03) translateY(-8px);
+    }
+    .card img {
+      width:260px; height:180px; object-fit:cover;
+      border-radius:14px 14px 0 0; margin-bottom:12px;
+      transition:filter .3s;
+      filter:brightness(.97);
+    }
+    .card:hover img { filter:brightness(1.09);}
     .card .name {font-size:1.25em; font-weight:600; margin:0 0 7px;}
-    .card .desc {font-size:.97em; color:#374151; margin:0 0 9px; text-align:center;}
-    .card .price {font-size:1.18em; color:#16a34a; margin-bottom:13px;}
+    .card .desc {font-size:.97em; color:var(--text-desc); margin:0 0 9px; text-align:center;}
+    .card .price {font-size:1.18em; color:var(--price); margin-bottom:13px;}
     .buy-btn {
-      padding:11px 34px; background:#2563eb; color:#fff; border:none; border-radius:8px;
-      font-size:1.05em; font-weight:600; cursor:pointer; box-shadow:0 2px 8px #2563eb2a;
-      text-decoration:none; transition:background .16s;
+      padding:11px 34px;
+      background:var(--primary);
+      color:#fff;
+      border:none; border-radius:8px;
+      font-size:1.05em; font-weight:600; cursor:pointer;
+      box-shadow:0 2px 8px var(--primary)2a;
+      text-decoration:none;
+      transition:background .16s, transform .15s;
+      transform:scale(1);
+      will-change:transform;
+      position:relative;
+      overflow:hidden;
     }
-    .buy-btn:hover { background:#1d4ed8;}
+    .buy-btn:active { transform:scale(.97);}
+    .buy-btn:hover {
+      background:var(--primary-dark);
+      transform:scale(1.04);
+      box-shadow:0 6px 18px var(--primary-dark)22;
+    }
     @media (max-width:800px) {
       .shop {gap:20px;}
       .card {width:90vw; max-width:350px;}
       .card img {width:84vw; max-width:300px;}
+    }
+    /* Animation for button click (ripple) */
+    .buy-btn .ripple {
+      position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none;
+      border-radius:8px; background:var(--primary-dark);
+      animation:ripple .6s linear;
+      opacity:.25;
+    }
+    @keyframes ripple {
+      0% { transform:scale(0);}
+      80% { transform:scale(2); opacity:.25;}
+      100% { transform:scale(2.5); opacity:0;}
     }
   </style>
 </head>
@@ -38,35 +155,85 @@
   <header>
     <h1>BestShop</h1>
     <p>Top Produkte clever shoppen – unsere Empfehlungen!</p>
+    <button class="toggle-mode" id="modeBtn" aria-label="Theme Switch">
+      <svg id="modeIcon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+    </button>
   </header>
   <main>
-    <section class="shop">
-      <!-- Produktkarte Beispiel 1 -->
-      <div class="card">
-        <img src="https://images-na.ssl-images-amazon.com/images/I/81r1zN1T2HL._AC_SL1500_.jpg" alt="Kopfhörer">
-        <div class="name">Kabellose Kopfhörer</div>
-        <div class="desc">Bequeme, stylische Kopfhörer mit langer Akkulaufzeit. Perfekt für Musik und Podcasts.</div>
-        <div class="price">49,99 €</div>
-        <a class="buy-btn" href="DEIN-AFFILIATE-LINK-1" target="_blank" rel="noopener">Kaufen</a>
-      </div>
-      <!-- Produktkarte Beispiel 2 -->
-      <div class="card">
-        <img src="https://images-na.ssl-images-amazon.com/images/I/71WxB2gHf8L._AC_SL1500_.jpg" alt="Fitness Tracker">
-        <div class="name">Fitness Tracker</div>
-        <div class="desc">Tracke deine Schritte, Schlaf und Kalorien – ideal für den aktiven Alltag.</div>
-        <div class="price">35,99 €</div>
-        <a class="buy-btn" href="DEIN-AFFILIATE-LINK-2" target="_blank" rel="noopener">Kaufen</a>
-      </div>
-      <!-- Produktkarte Beispiel 3 -->
-      <div class="card">
-        <img src="https://images-na.ssl-images-amazon.com/images/I/71dT1gq1f4L._AC_SL1500_.jpg" alt="Kaffeemaschine">
-        <div class="name">Kaffeemaschine</div>
-        <div class="desc">Für den perfekten Start in den Tag – mit Timer & Milchaufschäumer.</div>
-        <div class="price">79,99 €</div>
-        <a class="buy-btn" href="DEIN-AFFILIATE-LINK-3" target="_blank" rel="noopener">Kaufen</a>
-      </div>
-      <!-- Weitere Produkte lassen sich einfach als weitere "card"-Divs hinzufügen -->
+    <section class="shop" id="shop">
+      <!-- Produktkarten werden mit JS gerendert -->
     </section>
   </main>
+  <script>
+    // Produktdaten eintragen!
+    const products = [
+      {
+        name: "Kabellose Kopfhörer",
+        desc: "Bequeme, stylische Kopfhörer mit langer Akkulaufzeit. Perfekt für Musik und Podcasts.",
+        price: "49,99 €",
+        img: "https://images-na.ssl-images-amazon.com/images/I/81r1zN1T2HL._AC_SL1500_.jpg",
+        link: "DEIN-AFFILIATE-LINK-1"
+      },
+      {
+        name: "Fitness Tracker",
+        desc: "Tracke deine Schritte, Schlaf und Kalorien – ideal für den aktiven Alltag.",
+        price: "35,99 €",
+        img: "https://images-na.ssl-images-amazon.com/images/I/71WxB2gHf8L._AC_SL1500_.jpg",
+        link: "DEIN-AFFILIATE-LINK-2"
+      },
+      {
+        name: "Kaffeemaschine",
+        desc: "Für den perfekten Start in den Tag – mit Timer & Milchaufschäumer.",
+        price: "79,99 €",
+        img: "https://images-na.ssl-images-amazon.com/images/I/71dT1gq1f4L._AC_SL1500_.jpg",
+        link: "DEIN-AFFILIATE-LINK-3"
+      }
+      // Weitere Produkte nach Bedarf ergänzen!
+    ];
+
+    // Produktkarten dynamisch rendern mit Animation-Delay
+    const shop = document.getElementById('shop');
+    shop.innerHTML = products.map((p,i) => `
+      <div class="card" style="--i:${i};">
+        <img src="${p.img}" alt="${p.name}">
+        <div class="name">${p.name}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="price">${p.price}</div>
+        <a class="buy-btn" href="${p.link}" target="_blank" rel="noopener">
+          Kaufen
+        </a>
+      </div>
+    `).join('');
+
+    // Dark-/Lightmode
+    const modeBtn = document.getElementById('modeBtn');
+    const modeIcon = document.getElementById('modeIcon');
+    function setMode(dark) {
+      if(dark){
+        document.body.classList.add('dark');
+        modeIcon.innerHTML = '<path d="M12 2a10 10 0 0 0 0 20c5.52 0 10-4.48 10-10a1 1 0 0 0-1-1c-5.52 0-10-4.48-10-10a1 1 0 0 0-1-1z"/>';
+      } else {
+        document.body.classList.remove('dark');
+        modeIcon.innerHTML = '<circle cx="12" cy="12" r="10"/>';
+      }
+      localStorage.setItem('shopmode', dark ? 'dark' : 'light');
+    }
+    modeBtn.onclick = ()=>setMode(!document.body.classList.contains('dark'));
+    // Initial Theme
+    setMode(localStorage.getItem('shopmode') === 'dark');
+
+    // Button Ripple Animation
+    document.querySelectorAll('.shop').forEach(section => {
+      section.addEventListener('click', e => {
+        if (e.target.classList.contains('buy-btn')) {
+          const btn = e.target;
+          const ripple = document.createElement('span');
+          ripple.className = 'ripple';
+          btn.appendChild(ripple);
+          setTimeout(()=>ripple.remove(),600);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
