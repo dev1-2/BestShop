@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>BestShop – Deine Produktempfehlungen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,400&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; font-family: 'Montserrat', Arial, sans-serif; background: #f6f8fb; color: #222;}
+    header { background:#1e293b; color:#fff; padding:32px 0 16px; text-align:center; }
+    header h1 { margin:0; font-size:2.6em; letter-spacing:2px;}
+    header p { margin-top:8px; font-size:1.1em; color:#cbd5e1;}
+    .shop { max-width:1200px; margin:40px auto; display:flex; flex-wrap:wrap; gap:32px; justify-content:center;}
+    .card {
+      background:#fff; border-radius:16px; box-shadow:0 6px 24px #0f172a22;
+      width:300px; padding:0 0 18px; display:flex; flex-direction:column; align-items:center;
+      transition:transform .17s;
+    }
+    .card:hover { transform:scale(1.03);}
+    .card img { width:260px; height:180px; object-fit:cover; border-radius:14px 14px 0 0; margin-bottom:12px;}
+    .card .name {font-size:1.25em; font-weight:600; margin:0 0 7px;}
+    .card .desc {font-size:.97em; color:#374151; margin:0 0 9px; text-align:center;}
+    .card .price {font-size:1.18em; color:#16a34a; margin-bottom:13px;}
+    .buy-btn {
+      padding:11px 34px; background:#2563eb; color:#fff; border:none; border-radius:8px;
+      font-size:1.05em; font-weight:600; cursor:pointer; box-shadow:0 2px 8px #2563eb2a;
+      text-decoration:none; transition:background .16s;
+    }
+    .buy-btn:hover { background:#1d4ed8;}
+    @media (max-width:800px) {
+      .shop {gap:20px;}
+      .card {width:90vw; max-width:350px;}
+      .card img {width:84vw; max-width:300px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BestShop</h1>
+    <p>Top Produkte clever shoppen – unsere Empfehlungen!</p>
+  </header>
+  <main>
+    <section class="shop">
+      <!-- Produktkarte Beispiel 1 -->
+      <div class="card">
+        <img src="https://images-na.ssl-images-amazon.com/images/I/81r1zN1T2HL._AC_SL1500_.jpg" alt="Kopfhörer">
+        <div class="name">Kabellose Kopfhörer</div>
+        <div class="desc">Bequeme, stylische Kopfhörer mit langer Akkulaufzeit. Perfekt für Musik und Podcasts.</div>
+        <div class="price">49,99 €</div>
+        <a class="buy-btn" href="DEIN-AFFILIATE-LINK-1" target="_blank" rel="noopener">Kaufen</a>
+      </div>
+      <!-- Produktkarte Beispiel 2 -->
+      <div class="card">
+        <img src="https://images-na.ssl-images-amazon.com/images/I/71WxB2gHf8L._AC_SL1500_.jpg" alt="Fitness Tracker">
+        <div class="name">Fitness Tracker</div>
+        <div class="desc">Tracke deine Schritte, Schlaf und Kalorien – ideal für den aktiven Alltag.</div>
+        <div class="price">35,99 €</div>
+        <a class="buy-btn" href="DEIN-AFFILIATE-LINK-2" target="_blank" rel="noopener">Kaufen</a>
+      </div>
+      <!-- Produktkarte Beispiel 3 -->
+      <div class="card">
+        <img src="https://images-na.ssl-images-amazon.com/images/I/71dT1gq1f4L._AC_SL1500_.jpg" alt="Kaffeemaschine">
+        <div class="name">Kaffeemaschine</div>
+        <div class="desc">Für den perfekten Start in den Tag – mit Timer & Milchaufschäumer.</div>
+        <div class="price">79,99 €</div>
+        <a class="buy-btn" href="DEIN-AFFILIATE-LINK-3" target="_blank" rel="noopener">Kaufen</a>
+      </div>
+      <!-- Weitere Produkte lassen sich einfach als weitere "card"-Divs hinzufügen -->
+    </section>
+  </main>
+</body>
+</html>
